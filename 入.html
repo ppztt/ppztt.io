@@ -11,20 +11,47 @@
             padding: 0;
         }
         .hd-box{
+            position: relative;
             width: auto;
             height: 40px;
             background-color: rgb(97, 161, 212);
         }
-        .hd-box h3{
+        .hd-box .hd-churu{
+            position: absolute;
+            top: 0px;
+            left: 30px;
             font-weight: 400;
             line-height: 40px;
             color: #fff;
             float: left;
         }
-        .hd-box .right{
+        .hd-box svg{
+            position: absolute;
+            line-height: 40px;
+            font-weight: 700;
+            top: 9px;
+            left: 2px;
+        }
+        .hd-box div{
+            top: 9px;
+            right: 5px;
+            position: absolute;
             float: right;
-            font-size: 30px;
+        }
+        .hd-box div ul li{
+            font-size: 13px;
+            line-height: 7px;
+            color: #fff
+        }
+        .hd-box .right{
+            position: absolute;
+            top: -3px;
+            right: 15px;
+            font-size: 40px;
             padding-right: 15px;
+            font-weight: 200;
+            color: #fff;
+            line-height: 40px;
         }
         .title{
             width: 100px;
@@ -144,7 +171,14 @@ button{
 </head>
 <body>
     <div class="hd-box">
-        <h3>&lt 出入凭证</h3><h3 class="right">×</h3>
+        <svg t="1646048555935" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2213" width="22" height="22" class="hd-churu2"><path  class="hd-churu3" d="M677.391515 873.916768c-7.86101 0-15.618586-2.999596-21.617778-8.895354L324.473535 533.721212c-11.998384-11.894949-11.998384-31.340606 0-43.235555L655.670303 159.288889c5.999192-5.999192 13.756768-8.895354 21.617778-8.895354 7.757576 0 15.618586 2.999596 21.617778 8.895354 11.894949 11.894949 11.894949 31.237172 0 43.235555L389.223434 512.103434 698.905859 821.785859c11.894949 11.998384 11.894949 31.340606 0 43.235555-5.895758 5.895758-13.756768 8.895354-21.514344 8.895354z m0 0" p-id="2214" fill="#ffffff"></path></svg> 
+        <h3 class="hd-churu">出入凭证</h3>
+        <h3 class="right">×</h3>
+        <div><ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul></div>
     </div>
     <div class="title">
         <p>入校凭证</p>
