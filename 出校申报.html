@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>出校申报</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .list-bottom ul li{
+      list-style: circle;
+      float: left;
+    }
+    a {
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .title-bar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: #6cb0fb;
+      color: #fff;
+      padding: 10px 5px;
+    }
+
+    .title-bar .title-text {
+      flex: 1;
+      padding-left: 16px;
+    }
+
+    .title-bar .title-icon {
+      width: 26px;
+      height: 26px;
+    }
+
+    .record-list {
+      width: 90%;
+      height: 20%;
+      margin: 10px auto;
+    }
+
+    .record-card {
+      box-shadow: 0px 1px 5px 0px #a4a0a0;
+      /* margin-bottom: 3%; */
+      margin-top: 10px;
+    }
+
+    .record-header {
+      width: 100%;
+      height: 20%;
+      font-weight: 700;
+      font-size: small;
+      border-bottom: 1px solid #d8d8d8;
+    }
+
+    .record-header .hd {
+      padding: 10px;
+
+    }
+
+    .record-body {
+      width: 100%;
+      height: 20%;
+      border-bottom: 1px solid #d8d8d8;
+
+    }
+
+    .record-body .bd {
+      padding: 10px;
+
+    }
+
+    .record-footer {
+      width: 100%;
+      height: 20%;
+      font-size: smaller;
+      color: #367cc8;
+      /* border-top: 1px solid #d8d8d8; */
+    }
+
+    .record-footer div {
+      margin: 10px 15px;
+      width: 40%;
+      padding: 10px;
+      /* height: 80px; */
+      display: inline-block;
+      /* float: left; */
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    .record-footer .xiangqing {
+      /* width: 45%;
+          height: 60%; */
+      background-color: #3c96f6;
+      color: #fff;
+      /* line-height: 80px;/ */
+
+    }
+
+    .record-footer .quxiao {
+      background-color: #f6f6f6;
+      /* line-height: 80px; */
+
+    }
+
+    .record-footer .quxiao a {
+      color: #9b9b9b;
+    }
+
+    .record-footer .xiangqing a {
+      color: #fff;
+    }
+
+    .item-label {
+      text-align-last: justify;
+      text-align: justify;
+    }
+
+    .data-label::before {
+      content: '：';
+      display: inline-block;
+    }
+
+    .item-label,
+    .data-label {
+      font-size: smaller;
+    }
+
+    .data-label.status {
+      color: #189d18;
+    }
+    .list_bottom {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+   
+    }
+    .list_bottom .box2{
+      padding: 10px;
+      width: 50%;
+      background-color: #e1e1e1;
+      float: left;
+      color: #000;
+    }
+    .list_bottom .box3{
+      padding: 10px;
+      width: 50%;
+      background-color: #3c96f6;
+      float: left;
+      color: #fff;
+    }
+  </style>
+  <script>
+    Date.prototype.format = function (fmt) {
+      var o = {
+        "y+": this.getFullYear, //年
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "A+": this.getDate()-1, //假日
+        "D+": this.getDate() + Math.floor((this.getHours() + 4) / 24), //日
+        "h+": this.getHours() - 2, //小时
+        "H+": this.getHours() - 1, //小时
+        "w+": this.getHours() + 4 - Math.floor((this.getHours() + 4) / 24) * 24,
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds() //秒
+      };
+      if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+      for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+      return fmt;
+    }
+    setInterval("document.getElementById('dateTime').innerHTML = (new Date()).format('yyyy-MM-DD ww');", 1000);
+    setInterval("document.getElementById('dateTime2').innerHTML = (new Date()).format('yyyy-MM-dd');", 1000);
+    setInterval("document.getElementById('dateTime7').innerHTML = (new Date()).format('yyyy-MM-dd');", 1000);
+    setInterval("document.getElementById('dateTime8').innerHTML = (new Date()).format('yyyy-MM-dd');", 1000);
+    setInterval("document.getElementById('dateTime5').innerHTML = (new Date()).format('yyyyMMdd');", 1000);
+    setInterval("document.getElementById('dateTime51').innerHTML = (new Date()).format('yyyyMMdd');", 1000);
+    setInterval("document.getElementById('dateTime4').innerHTML = (new Date()).format('yyyy-MM-dd');", 1000);
+    setInterval("document.getElementById('dateTime3').innerHTML = (new Date()).format('yyyy-MM-dd hh');", 1000);
+    setInterval("document.getElementById('dateTime6').innerHTML = (new Date()).format('yyyy-MM-AA HH');", 1000);
+    var now = new Date();
+    var halfHoursAgo = new Date(now.getTime() - 1814000);
+    var oneHoursAgo = new Date(now.getTime() - 3645000);
+    function generateRequestNumber() {
+      var requestNumber = '';
+      var random = Math.floor(Math.random() * 30000);
+      requestNumber += now.Format('yyyyMMdd');
+      requestNumber += random;
+      return requestNumber;
+    }
+    function getParam(key) {
+      var url = location.search; //获取url中"?"符后的字串
+      if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        var strs = str.split("&");
+        for (var i in strs) {
+          var pair = strs[i].split("=");
+          if (pair[0] === key) {
+            return decodeURI(pair[1]);
+          }
+        }
+        return null;
+      }
+    }
+    var studentName = getParam('studentName');
+    var studentId = getParam('studentId');
+    $('#requestId1').html('申请编号：' + generateRequestNumber())
+    $('#requestId2').html('申请编号：' + generateRequestNumber())
+    $('.data-label.name').html(studentName)
+    $('.data-label.id').html(studentId)
+    $('.data-label.startTime').html(now.Format('yyyy-MM-dd'))
+    $('.data-label.endTime').html(now.Format('yyyy-MM-dd'))
+    $('.data-label.submitTime1').html(halfHoursAgo.Format('yyyy-MM-dd hh:mm:ss'))
+    $('.data-label.submitTime2').html(oneHoursAgo.Format('yyyy-MM-dd hh:mm:ss'))
+  </script>
+</head>
+
+<body>
+  <div class="record-list">
+    <div class="record-card">
+      <div class="record-header">
+        <div class="hd">申请编号：<span id="dateTime5"></span>01840</div>
+      </div>
+      <div class="record-body">
+        <div class="bd">
+          <table>
+            <tr>
+              <td class="item-label">姓名</td>
+              <td class="data-label name">彭泽涛</td>
+            </tr>
+            <tr>
+              <td class="item-label">学号</td>
+              <td class="data-label id">20154A132</td>
+            </tr>
+            <tr>
+              <td class="item-label">开始时间</td>
+              <td class="data-label startTime" id="dateTime2"></td>
+            </tr>
+            <tr>
+              <td class="item-label">结束时间</td>
+              <td class="data-label endTime" id="dateTime4"></td>
+            </tr>
+            <tr>
+              <td class="item-label">外出类型</td>
+              <td class="data-label type">其他</td>
+            </tr>
+            <tr>
+              <td class="item-label">涉及天数</td>
+              <td class="data-label time">1天</td>
+            </tr>
+            <tr>
+              <td class="item-label">状态</td>
+              <td class="data-label status">审批通过</td>
+            </tr>
+            <tr>
+              <td class="item-label">提交时间</td>
+              <td class="data-label submitTime1" ><span id="dateTime6"></span>:24:15</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="record-footer">
+        <div class="xiangqing"><a href="出校申报详情.html " onClick="javascript :history.back(-1);">详情</a></div>
+        <div class="quxiao"><a href="#">取消 </a></div>
+      </div>
+    </div>
+    <div class="record-card">
+      <div class="record-header">
+        <div class="hd">申请编号：<span id="dateTime5"></span>2022031316740</div>
+      </div>
+      <div class="record-body">
+        <div class="bd">
+          <table>
+            <tr>
+              <td class="item-label">姓名</td>
+              <td class="data-label name">彭泽涛</td>
+            </tr>
+            <tr>
+              <td class="item-label">学号</td>
+              <td class="data-label id">20154A132</td>
+            </tr>
+            <tr>
+              <td class="item-label">开始时间</td>
+              <td class="data-label startTime">2022-03-14</td>
+            </tr>
+            <tr>
+              <td class="item-label">结束时间</td>
+              <td class="data-label endTime" >2022-03-14</td>
+            </tr>
+            <tr>
+              <td class="item-label">外出类型</td>
+              <td class="data-label type">其他</td>
+            </tr>
+            <tr>
+              <td class="item-label">涉及天数</td>
+              <td class="data-label time">1天</td>
+            </tr>
+            <tr>
+              <td class="item-label">状态</td>
+              <td class="data-label status">审批通过</td>
+            </tr>
+            <tr>
+              <td class="item-label">提交时间</td>
+              <td class="data-label submitTime1">2021-03-13 18:24:15</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="record-footer">
+        <div class="xiangqing"><a href="#">详情</a></div>
+        <div class="quxiao"><a href="#">取消 </a></div>
+      </div>
+    </div>
+    <div class="record-card">
+      <div class="record-header">
+        <div class="hd">申请编号：<span id="dateTime5"></span>2021122419080</div>
+      </div>
+      <div class="record-body">
+        <div class="bd">
+          <table>
+            <tr>
+              <td class="item-label">姓名</td>
+              <td class="data-label name">彭泽涛</td>
+            </tr>
+            <tr>
+              <td class="item-label">学号</td>
+              <td class="data-label id">20154A132</td>
+            </tr>
+            <tr>
+              <td class="item-label">开始时间</td>
+              <td class="data-label startTime">2021-12-24</td>
+            </tr>
+            <tr>
+              <td class="item-label">结束时间</td>
+              <td class="data-label endTime" >2021-12-24</td>
+            </tr>
+            <tr>
+              <td class="item-label">外出类型</td>
+              <td class="data-label type">其他</td>
+            </tr>
+            <tr>
+              <td class="item-label">涉及天数</td>
+              <td class="data-label time">1天</td>
+            </tr>
+            <tr>
+              <td class="item-label">状态</td>
+              <td class="data-label status">审批通过</td>
+            </tr>
+            <tr>
+              <td class="item-label">提交时间</td>
+              <td class="data-label submitTime1">2021-12-24 16:24:45</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="record-footer">
+        <div class="xiangqing"><a href="#">详情</a></div>
+        <div class="quxiao"><a href="#">取消 </a></div>
+      </div>
+    </div>
+    <div class="record-card">
+      <div class="record-header">
+        <div class="hd">申请编号：<span id="dateTime5"></span>2021122419080</div>
+      </div>
+      <div class="record-body">
+        <div class="bd">
+          <table>
+            <tr>
+              <td class="item-label">姓名</td>
+              <td class="data-label name">彭泽涛</td>
+            </tr>
+            <tr>
+              <td class="item-label">学号</td>
+              <td class="data-label id">20154A132</td>
+            </tr>
+            <tr>
+              <td class="item-label">开始时间</td>
+              <td class="data-label startTime">2021-12-24</td>
+            </tr>
+            <tr>
+              <td class="item-label">结束时间</td>
+              <td class="data-label endTime" >2021-12-24</td>
+            </tr>
+            <tr>
+              <td class="item-label">外出类型</td>
+              <td class="data-label type">其他</td>
+            </tr>
+            <tr>
+              <td class="item-label">涉及天数</td>
+              <td class="data-label time">1天</td>
+            </tr>
+            <tr>
+              <td class="item-label">状态</td>
+              <td class="data-label status">审批通过</td>
+            </tr>
+            <tr>
+              <td class="item-label">提交时间</td>
+              <td class="data-label submitTime1">2021-12-24 16:24:45</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="record-footer">
+        <div class="xiangqing"><a href="#">详情</a></div>
+        <div class="quxiao"><a href="#">取消 </a></div>
+      </div>
+    </div>
+  </div>
+  <div class="list_bottom">
+    <div class="box2">申请记录</div>
+    <div class="box3">出校申报</div>
+  </div>
+</body>
+
+</html>
