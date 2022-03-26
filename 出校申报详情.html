@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" /> 
+    <title>出校申报详情</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            width: auto;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        h3 {
+            font-weight: 400;
+        }
+
+        body {
+			position: relative;
+            background-color: #f6f6f6;
+        }
+		li{
+			list-style: none;
+		}
+        .hd-box {
+            position: relative;
+            width: auto;
+            height: 55px;
+            background-color: rgb(97, 161, 212);
+        }
+
+        .hd-box .hd-churu {
+            position: absolute;
+            top: 0px;
+            left: 30px;
+            font-weight: 400;
+            line-height: 55px;
+            color: #fff;
+            float: left;
+        }
+
+        .hd-box svg {
+            position: absolute;
+            line-height: 55px;
+            font-weight: 700;
+            top: 17px;
+            left: 2px;
+        }
+
+        .hd-box div {
+            top: 9px;
+            right: 5px;
+            position: absolute;
+            float: right;
+        }
+
+        .hd-box div ul li {
+            list-style: disc;
+            font-size: 13px;
+            line-height: 10px;
+            color: #fff
+        }
+
+        .hd-box .right {
+            position: absolute;
+            top: -5px;
+            right: 15px;
+            font-size: 40px;
+            padding-right: 15px;
+            font-weight: 200;
+            color: #fff;
+            line-height: 55px;
+        }
+
+        .bd-box .bd-head {
+            text-align: center;
+            height: 50px;
+            width: auto;
+            background-color: #fff;
+        }
+
+        .bd-box .bd-head h3 {
+            font-size: 16px;
+            line-height: 50px;
+        }
+
+        .bd-box .shenqing {
+            height: 35px;
+            padding-left: 10px;
+        }
+
+        .bd-box .shenqing h3 {
+            line-height: 35px;
+            font-size: 14px;
+        }
+
+        .name,
+        .count,
+        .footer {
+            position: relative;
+            height: 180px;
+            background-color: #fff;
+        }
+
+        .name ul,
+        .count ul ,
+        .footer ul{
+            position: absolute;
+            top: 10px;
+            margin-left: 10px;
+            font-size: 14px;
+            line-height: 22px;
+        }
+
+        .count {
+            height: 260px;
+        }
+        .footer{
+            height: 180px;
+        }
+        .footer2{
+			position: absolute;
+			bottom: 0;
+            height: 40px;
+            width: 100%;
+            background-color: #95d5ee;
+        }
+        .footer2 div{
+            width: 150px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+        }
+        .footer2 div h3,a{
+            font-weight: 400;
+            font-size: 14px;
+        }
+        .footer2 .bz{
+			float: left;
+            width: 20%;
+            background-color: #efefef;
+            color: #7777;
+        }
+        .footer2 .chu{
+            width: 40%;
+			float: left;
+            background-color: #95d5ee;
+            color: #fff;
+        }
+        .footer2 .ru{
+            width: 40%;
+			float:right;
+            background-color: #40b2e4;
+            color: #fff;
+        }
+    </style>
+    <script>
+        Date.prototype.format = function (fmt) {
+            var o = {
+                "y+": this.getFullYear, //年
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "D+": this.getDate() + Math.floor((this.getHours() + 4) / 24), //日
+                "h+": this.getHours() - 2, //小时
+                "H+": this.getHours() - 1, //小时
+                "w+": this.getHours() + 4 - Math.floor((this.getHours() + 4) / 24) * 24,
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds() //秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+        setInterval("document.getElementById('dateTime').innerHTML = (new Date()).format('yyyy-MM-DD ww');", 1000);
+        setInterval("document.getElementById('dateTime2').innerHTML = (new Date()).format('yyyy-MM-dd');", 1000);
+        setInterval("document.getElementById('dateTime5').innerHTML = (new Date()).format('yyyyMMdd');", 1000);
+        setInterval("document.getElementById('dateTime4').innerHTML = (new Date()).format('yyyy-MM-dd');", 1000);
+        setInterval("document.getElementById('dateTime3').innerHTML = (new Date()).format('yyyy-MM-dd hh');", 1000);
+        setInterval("document.getElementById('dateTime6').innerHTML = (new Date()).format('yyyy/MM/dd HH');", 1000);
+    </script>
+</head>
+
+<body>
+    <div class="hd-box">
+        <svg t="1646048555935" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="2213" width="22" height="22" class="hd-churu2">
+            <path class="hd-churu3"
+                d="M677.391515 873.916768c-7.86101 0-15.618586-2.999596-21.617778-8.895354L324.473535 533.721212c-11.998384-11.894949-11.998384-31.340606 0-43.235555L655.670303 159.288889c5.999192-5.999192 13.756768-8.895354 21.617778-8.895354 7.757576 0 15.618586 2.999596 21.617778 8.895354 11.894949 11.894949 11.894949 31.237172 0 43.235555L389.223434 512.103434 698.905859 821.785859c11.894949 11.998384 11.894949 31.340606 0 43.235555-5.895758 5.895758-13.756768 8.895354-21.514344 8.895354z m0 0"
+                p-id="2214" fill="#ffffff"></path>
+        </svg>
+        <h3 class="hd-churu">出校申报详情</h3>
+        <h3 class="right">×</h3>
+        <div>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <div class="bd-box">
+        <div class="bd-head">
+            <h3>彭泽涛的出校申报详情单</h3>
+        </div>
+        <div class="shenqing">
+            <h3>申请人</h3>
+        </div>
+        <div class="name">
+            <ul>
+                <li>姓名：<span>彭泽涛</span></li>
+                <li>学号：<span>20154A132</span></li>
+                <li>性别：<span>男</span></li>
+                <li>学院：<span>互联网金融与信息工程学院</span></li>
+                <li>专业：<span>互联网金融</span></li>
+                <li>班级：<span>20互联网金融-1班</span></li>
+                <li>年级：<span>2020</span></li>
+                
+            </ul>
+        </div>
+        <div class="shenqing">
+            <h3>申请内容</h3>
+        </div>
+        <div class="count">
+            <ul>
+                <li>申请编号：<span id="dateTime5"></span>03678</li>
+                <li>外出类型：<span>其他 外出</span></li>
+                <li>外出去向：<span>广东省广州市天河区</span></li>
+                <li>开始时间：<span id="dateTime2" ></span></li>
+                <li>结束时间：<span id="dateTime4" ></span></li>
+                <li>涉及天数：<span>1</span></li>
+                <li>出入次数：<span>共一次出入</span></li>
+                <li>提交时间：<span id="dateTime3"></span>:45:21</li>
+                <li>联系电话：<span></span>13428315091</li>
+                <li>紧急联系人：<span></span></li>
+                <li>紧急联系人电话：<span></span></li>
+                <span class=""></span>
+            </ul>
+        </div>
+        <div class="shenqing">
+            <h3>审批记录</h3>
+        </div>
+</div>
+    <div class="footer">
+        <ul>
+            <li>审批老师1：<span>朱哲哲</span></li>
+            <li>审批状态1：<span>审批通过</span></li>
+            <li>审批时间1：<span id="dateTime6"></span>:12:34</li>
+        </ul>
+    </div>
+    <div class="footer2">
+        <div class="bz"><h3>补正</h3></div>
+        <a href="https://ppztt.github.io/ppztt.io/%E5%87%BA.html" onClick="javascript :history.back(-1);"><div class="chu">生成出校凭证</div></a>
+        <a href="https://ppztt.github.io/ppztt.io/%E5%85%A5.html" onClick="javascript :history.back(-1);"><div class="ru">生成入校凭证</div></a>
+    </div>
+</body>
+
+</html>
