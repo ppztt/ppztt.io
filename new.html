@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>入校凭证</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+		body{
+			color: #fff;
+			background-color: #000 ;
+		}
+        .hd-box{
+            width: auto;
+            height: 40px;
+            background-color: rgb(97, 161, 212);
+        }
+        .hd-box h3{
+            font-weight: 400;
+            line-height: 40px;
+            color: #fff;
+            float: left;
+        }
+        .hd-box .right{
+            float: right;
+            font-size: 30px;
+            padding-right: 15px;
+        }
+        .title{
+            width: 100px;
+            height: 20px;
+            margin: 20px auto;
+            
+        }
+        .title p{
+            font-size: 24px;
+        }
+        .bd{
+            width: auto;
+            height: auto;
+        }
+        .bd h3{
+			font-size: 18px;
+            margin-top: 20px;
+            text-indent: 2em;
+            font-weight: 400;
+        }
+        .inandout {
+            animation: san 0.7s linear infinite;
+            width: auto;
+            height:40px;
+            margin: 0 auto;
+            margin-top: 80px;
+            text-align: center;
+            font-size: 100px;
+            
+        }
+        .inandout {
+            font-weight: 400;
+        }
+        .footer{
+            left: 25%;
+            width: auto;
+            height: 30px;
+            margin: 0 auto;    
+			margin-top: 130px;
+        }
+        .footer h3{
+            color: #fff;
+            font-weight: 400;
+            font-size: 26px;
+            text-align: center;
+        }
+        @keyframes san{
+            0%{
+                    
+            }
+            100%{
+               color: transparent;
+               text-shadow: none;
+            }}
+button{
+    border: none ;
+}
+    </style>
+    <script>
+        Date.prototype.format = function (fmt) {
+            var o = {
+                "y+": this.getFullYear, //年
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "w+": this.getHours()+4,
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds() //秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+        setInterval("document.getElementById('dateTime').innerHTML = (new Date()).format('yyyy-MM-dd ww');", 1000);
+        setInterval("document.getElementById('dateTime2').innerHTML = (new Date()).format('yyyy-MM-dd');", 1000);
+        setInterval("document.getElementById('dateTime3').innerHTML = (new Date()).format('yyyy-MM-dd hh:mm:ss');", 1000);
+    </script>
+    <script>
+        var i=1;
+        function setcolor(){
+            i++;
+            if(i==2){
+               document.getElementById('colorid').style.backgroundColor='#000'; }
+            else if(i==3){
+               document.getElementById('colorid').style.backgroundColor='#1213f9';   
+            }else if(i==4){
+               document.getElementById('colorid').style.backgroundColor='#8a2ae3';
+            }else if(i==5){
+               document.getElementById('colorid').style.backgroundColor='#629e9e';
+            }
+			// else if(i==6){
+               // document.getElementById('colorid').style.backgroundColor='#c7f770';
+            // }
+			else if(i==6){
+               document.getElementById('colorid').style.backgroundColor='#007e03';
+			   i=1;
+            }
+			// else if(i==8){
+               // document.getElementById('colorid').style.backgroundColor='#60f9f6';
+            // }
+			else {
+               document.getElementById('colorid').style.backgroundColor='black';
+			   
+            }
+            
+        }
+		</script>
+	 <SCRIPT type="text/javascript">
+	             var maxtime = 5*60; //一个小时，按秒计算，自己调整!
+	             function CountDown() {
+	                 if (maxtime >= 0) {
+	                     minutes = Math.floor(maxtime / 60);
+	                     seconds = Math.floor(maxtime % 60);
+	                     msg ='00:'+'0'+ minutes + ":" + seconds ;
+	                     document.all["timer"].innerHTML = msg;
+	                     if (maxtime == 5 * 60);
+	                         --maxtime;
+	                 } else{
+	                     clearInterval(timer);
+	             
+	                 }
+	             }
+	             timer = setInterval("CountDown()", 1000);
+	         </SCRIPT>
+</head>
+<body onclick="setcolor()" id='colorid' >
+    <!-- <div class="hd-box">
+        <h3>&lt 出入凭证</h3><h3 class="right">×</h3>
+    </div> -->
+    <div class="title">
+        <p>入校凭证</p>
+    </div>
+    <div class="bd">
+        <h3 class="zj2">祖庆林（201545232）同学可于<span id="dateTime2"></span>入校。</h3>
+        <h3 class='zj3' style="color: #fff;" style="text-align: center;">该凭证将于
+        <span id="timer" style="color:#fff" class='time'></span>
+        <span id="warring" style="color:#FFFFFF" class='time'></span>后失效，请尽快入校</h3>
+    </div>
+
+        <div class="inandout" >入</div>
+   
+    <div class="footer">
+        <h3 id="dateTime3"></h3>
+    </div>
+</body>
+</html>
